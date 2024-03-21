@@ -22,6 +22,23 @@ mongoose
 // password should not contain '@' special character
 
 //Image Storage Engine
+
+
+app.get("/upload/images/:image" , async(req,res)=>{
+  const image = req.image
+  fs.readFile(`./upload/images/${image}` , (error,data)=>{
+        if(error){
+          res.json({
+            error: "error finding image"
+          })
+          
+        }
+        res.writeHead(200, { 'Content-Type': 'image/jpeg' }).end(data);
+  })
+
+})
+
+
 const storage = multer.diskStorage({
   destination: "./upload/images",
   filename: (req, file, cb) => {
